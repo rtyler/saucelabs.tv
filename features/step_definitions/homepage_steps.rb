@@ -3,6 +3,6 @@ When /^I visit the home page$/ do
 end
 
 Then /^I should be welcomed$/ do
-  pending # express the regexp above with the code you wish you had
+  page.should have_content 'Welcome to SauceLabs.tv'
 end
 
