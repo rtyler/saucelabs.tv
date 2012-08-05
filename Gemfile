@@ -2,6 +2,7 @@ source :gemcutter
 
 gem 'rake'
 gem 'foreman'
+gem 'httparty'
 gem 'sinatra'
 gem 'haml'
 gem 'thin'

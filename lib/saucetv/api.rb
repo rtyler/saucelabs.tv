@@ -1,12 +1,13 @@
+require 'rubygems'
+require 'httparty'
 
 module SauceTV
   class API
-    attr_accessor :username
-    attr_writer :api_key
+    include HTTParty
+    base_uri 'saucelabs.com/rest'
 
     def initialize(username, api_key)
-      @username = username
-      @api_key = api_key
+      @auth = {:username => username, :password => api_key}
     end
 
     def recent_jobs
