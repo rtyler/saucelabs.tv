@@ -32,14 +32,22 @@ module SauceTV
       begin
         response = self.class.get("/v1/#{username}/jobs")
       rescue Timeout::Error => e
-        puts e.inspect
+        puts "A call to SauceTV::API#recent_jobs timed out (#{e.inspect})"
         return []
       end
 
       unless response.code == 200
         return []
       end
-      response.body
+
+      # I believe that this should only be true if we receive non-JSON back
+      # from the API. Otherwise, I *think* HTTParty will return parsed JSON
+      # (Array)
+      if response.body.instance_of? String
+        []
+      else
+        response.body
+      end
     end
   end
 end
