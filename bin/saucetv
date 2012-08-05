@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+# vim: ft=ruby
+
+require 'rubygems'
+require 'thin'
+
+$LOAD_PATH.unshift File.join(File.dirname(__FILE__), '/../lib')
+
+require 'saucetv/app'
+
+
+SauceTV::Application.run!
