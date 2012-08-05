@@ -1,0 +1,4 @@
+*.swp
+ondemand.yml
+Gemfile.lock
+.rvmrc
