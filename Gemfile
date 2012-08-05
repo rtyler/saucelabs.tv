@@ -3,6 +3,7 @@ source :gemcutter
 gem 'rake'
 gem 'foreman'
 gem 'sinatra'
+gem 'haml'
 
 group :development do
   gem 'cucumber'
