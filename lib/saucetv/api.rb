@@ -8,19 +8,19 @@ module SauceTV
 
     attr_reader :username
 
+    TIMEOUT = 5
+    default_timeout TIMEOUT
+
     def initialize(username, api_key)
       @username = username
       @auth = {:username => username, :password => api_key}
     end
 
-    def default_timeout
-      5
-    end
-
     def default_options
       {:header => {'User-Agent' => 'SauceLabs.tv',
                     'Content-Type' => 'application/json'},
-        :basic_auth => @auth
+        :basic_auth => @auth,
+        :timeout => TIMEOUT
       }
     end
 
