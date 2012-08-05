@@ -1,6 +1,7 @@
 require 'capybara'
 require 'capybara/cucumber'
 require 'rack/test'
+require 'cucumber/rspec/doubles'
 
 $LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__) + '/../../lib')
 

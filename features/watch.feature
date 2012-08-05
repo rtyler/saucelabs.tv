@@ -12,6 +12,7 @@ Feature: Watch recorded job runs
 
   Scenario: Authenticated user
     Given I have a valid Sauce Labs username and API key
+    And I have recent jobs
     When I try to watch videos
     And I enter my credentials
     Then I should be given a list of jobs

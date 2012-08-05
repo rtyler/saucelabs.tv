@@ -5,6 +5,9 @@ Given /^I have a valid Sauce Labs username and API key$/ do
   has_valid_credentials?
 end
 
+Given /^I have recent jobs$/ do
+  SauceTV::API.any_instance.stub(:recent_jobs).and_return([{:id => 'test'}])
+end
 
 When /^I try to watch videos$/ do
   visit '/watch'
