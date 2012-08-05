@@ -9,19 +9,19 @@ module SauceTV
     attr_reader :username
 
     TIMEOUT = 5
-    default_timeout TIMEOUT
 
     def initialize(username, api_key)
       @username = username
       @auth = {:username => username, :password => api_key}
     end
 
-    def default_options
-      {:header => {'User-Agent' => 'SauceLabs.tv',
+    def get(url)
+      options = {:header => {'User-Agent' => 'SauceLabs.tv',
                     'Content-Type' => 'application/json'},
         :basic_auth => @auth,
         :timeout => TIMEOUT
       }
+      self.class.get(url, options)
     end
 
     def format
@@ -30,7 +30,7 @@ module SauceTV
 
     def recent_jobs
       begin
-        response = self.class.get("/v1/#{username}/jobs")
+        response = get("/v1/#{username}/jobs")
       rescue Timeout::Error => e
         puts "A call to SauceTV::API#recent_jobs timed out (#{e.inspect})"
         return []
