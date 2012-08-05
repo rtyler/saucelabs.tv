@@ -33,9 +33,10 @@ module SauceTV
 
       api = SauceTV::API.new(session[:username], session[:api_key])
 
+      jobs = api.recent_jobs
       haml :watch, :locals => {
         :username => session[:username],
-        :jobs => api.recent_jobs
+        :jobs => jobs
       }
     end
 
