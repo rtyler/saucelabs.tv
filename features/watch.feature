@@ -5,12 +5,19 @@ Feature: Watch recorded job runs
   focused on the videos and test results
 
 
-  Scenario: Unauthenticated user
+  Scenario: With no credentials
     Given I am an unauthenticated user
     When I try to watch videos
     Then I should be prompted to log in with my username and API key
 
-  Scenario: Authenticated user
+  @wip
+  Scenario: With invalid user credentials
+    Given I have an invalid Sauce Labs username or API key
+    When I try to watch videos
+    And I enter my credentials
+    Then I should be told my credentials are invalid
+
+  Scenario: With valid user credentials
     Given I have a valid Sauce Labs username and API key
     And I have recent jobs
     When I try to watch videos

@@ -9,6 +9,10 @@ module UserCredentials
     @credentials = YAML.load_file(filepath)
   end
 
+  def invalidate!
+    @credentials = {}
+  end
+
   def username
     @credentials['username'] || 'anonymous'
   end
