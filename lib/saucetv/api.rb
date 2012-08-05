@@ -10,7 +10,7 @@ module SauceTV
     end
 
     def recent_jobs
-      []
+      raise NotImplemented
     end
   end
 end

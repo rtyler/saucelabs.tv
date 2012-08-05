@@ -16,9 +16,9 @@ When /^I enter my credentials$/ do
   click_button 'Log in'
 end
 
-
 Then /^I should be given a list of jobs$/ do
   page.should have_content "Welcome #{username}"
+  page.should have_css('#jobs li.job')
 end
 
 Then /^I should be prompted to log in with my username and API key$/ do

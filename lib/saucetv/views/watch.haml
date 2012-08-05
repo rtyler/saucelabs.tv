@@ -4,3 +4,9 @@
       SauceLabs.tv
   %body
     Welcome #{username}
+
+    %ul#jobs
+      - jobs.each do |job|
+        %li.job
+          #{job[:id]}
+
