@@ -34,18 +34,53 @@ module SauceTV
       redirect to('/watch')
     end
 
+    get '/next/after/:id' do |id|
+      unless authenticated?
+        redirect to('/login')
+      end
+
+      api = api_for_session
+      jobs = []
+      begin
+        jobs =api.recent_jobs
+      rescue SauceTV::InvalidUserCredentials
+        redirect to('/login?invalid=true')
+      end
+
+      if jobs.empty?
+        redirect to('/watch')
+      end
+
+      previous = nil
+      jobs.each do |job|
+        break if id == job['id']
+        previous = job
+      end
+
+      unless previous.nil?
+        redirect to("/watch/#{previous['id']}")
+      end
+      redirect to('/watch')
+    end
+
     get '/watch/:id' do |id|
       unless authenticated?
         redirect to('/login')
       end
 
       api = api_for_session
-      info = api.info_for(id)
+      begin
+        info = api.info_for(id)
+      rescue SauceTV::InvalidUserCredentials
+        redirect to('/login?invalid=true')
+      end
 
       haml :player, :locals => {
-        :session => session[:username],
+        :username => session[:username],
         :id => id,
-        :info => info
+        :delay => info['end_time'] - info['start_time'],
+        :info => info,
+        :token => api.auth_token_for(id)
       }
     end
 

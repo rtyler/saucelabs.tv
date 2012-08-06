@@ -3,17 +3,16 @@
     %title
       SauceLabs.tv
   %body
-    Welcome #{username}
-
+    %div{:style => 'float: right; clear: all; font-weight: bold'}
+      Welcome #{username}
 
     - unless jobs.empty?
       %a{:href => "/watch/#{jobs[-1]['id']}"}
         Auto-Play
 
-    %ul#jobs
+    %ol#jobs
       - jobs.compact.each do |job|
         %li.job{:id => "job_#{job['id']}"}
-          %a{:href => "https://saucelabs.com/jobs/#{job['id']}"}
+          %a{:href => "/watch/#{job['id']}"}
             = job['name']
-          &middot;
 
