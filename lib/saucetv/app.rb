@@ -8,6 +8,7 @@ require 'saucetv/errors'
 module SauceTV
   class Application < Sinatra::Base
     enable :sessions
+    set :public_folder, File.expand_path(File.dirname(__FILE__) + '/../../public')
 
     def authenticated?
       session[:username] && session[:api_key]
