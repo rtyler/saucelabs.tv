@@ -6,7 +6,6 @@ Feature: Auto-play videos
   Background: Ensure we're always logged in
     Given I have a valid Sauce Labs username and API key
 
-  @wip
   Scenario: Auto-play the most recent 10 videos
     Given I have recent jobs
     And I am logged in
