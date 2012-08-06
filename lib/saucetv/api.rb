@@ -30,10 +30,14 @@ module SauceTV
 
     def recent_jobs
       begin
-        response = get("/v1/#{username}/jobs")
+        response = get("/v1/#{username}/jobs?full=true")
       rescue Timeout::Error => e
         puts "A call to SauceTV::API#recent_jobs timed out (#{e.inspect})"
         return []
+      end
+
+      if response.code == 401
+        raise SauceTV::InvalidUserCredentials
       end
 
       unless response.code == 200

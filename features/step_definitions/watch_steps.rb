@@ -36,5 +36,5 @@ Then /^I should be prompted to log in with my username and API key$/ do
 end
 
 Then /^I should be told my credentials are invalid$/ do
-  pending # express the regexp above with the code you wish you had
+  page.should have_content('Your username or API key is invalid')
 end

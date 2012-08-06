@@ -10,7 +10,6 @@ Feature: Watch recorded job runs
     When I try to watch videos
     Then I should be prompted to log in with my username and API key
 
-  @wip
   Scenario: With invalid user credentials
     Given I have an invalid Sauce Labs username or API key
     When I try to watch videos

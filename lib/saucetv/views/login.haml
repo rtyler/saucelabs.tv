@@ -3,13 +3,19 @@
     %title
       SauceLabs.tv
   %body
-    Please log in with your username and API key
+    - if invalid
+      %p
+        Your username or API key is invalid
 
-    %form{:method => 'POST', :action => '/login'}
-      %label
-        Sauce Labs Username:
-        %input{:name => 'username'}
-      %label
-        Sauce Labs API Key:
-        %input{:name => 'api_key', :type => 'password'}
-      %input{:type => 'submit', :value => 'Log in'}
+    %center
+      %h1
+        Please log in with your username and API key
+
+      %form{:method => 'POST', :action => '/login'}
+        %label
+          Sauce Labs Username:
+          %input{:name => 'username'}
+        %label
+          Sauce Labs API Key:
+          %input{:name => 'api_key', :type => 'password'}
+        %input{:type => 'submit', :value => 'Log in'}

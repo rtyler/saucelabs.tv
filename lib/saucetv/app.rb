@@ -3,6 +3,7 @@ require 'rubygems'
 require 'haml'
 require 'sinatra'
 require 'saucetv/api'
+require 'saucetv/errors'
 
 module SauceTV
   class Application < Sinatra::Base
@@ -17,7 +18,8 @@ module SauceTV
     end
 
     get '/login' do
-      haml :login
+      invalid = !(params['invalid'].nil?)
+      haml :login, :locals => {:invalid => invalid}
     end
 
     post '/login' do
@@ -32,8 +34,14 @@ module SauceTV
       end
 
       api = SauceTV::API.new(session[:username], session[:api_key])
+      jobs = []
 
-      jobs = api.recent_jobs
+      begin
+        jobs = api.recent_jobs
+      rescue SauceTV::InvalidUserCredentials
+        redirect to('/login?invalid=true')
+      end
+
       haml :watch, :locals => {
         :username => session[:username],
         :jobs => jobs
