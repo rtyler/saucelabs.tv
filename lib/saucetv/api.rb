@@ -43,10 +43,10 @@ module SauceTV
       # I believe that this should only be true if we receive non-JSON back
       # from the API. Otherwise, I *think* HTTParty will return parsed JSON
       # (Array)
-      if response.body.instance_of? String
+      if response.parsed_response.instance_of? String
         []
       else
-        response.body
+        response.parsed_response
       end
     end
   end

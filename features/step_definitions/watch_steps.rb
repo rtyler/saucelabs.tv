@@ -13,7 +13,7 @@ Given /^I have an invalid Sauce Labs username or API key$/ do
 end
 
 Given /^I have recent jobs$/ do
-  SauceTV::API.any_instance.stub(:recent_jobs).and_return([{:id => 'test'}])
+  SauceTV::API.any_instance.stub(:recent_jobs).and_return([{'id' => 'test'}])
 end
 
 When /^I try to watch videos$/ do

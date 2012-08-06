@@ -30,7 +30,7 @@ describe SauceTV::API do
         response = mock('HTTParty::Response')
         response.stub(:code).and_return(200)
         markup = "<html><body>Failboat</body></html>"
-        response.stub(:body).and_return(markup)
+        response.stub(:parsed_response).and_return(markup)
         response
       end
 
