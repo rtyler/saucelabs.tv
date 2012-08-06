@@ -1,6 +1,7 @@
 source :gemcutter
 
 gem 'rake'
+gem 'ruby-hmac'
 gem 'foreman'
 gem 'httparty'
 gem 'sinatra'
