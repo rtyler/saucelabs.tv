@@ -1,7 +1,6 @@
 require 'rubygems'
 
 require 'haml'
-require 'hmac'
 require 'sinatra'
 require 'saucetv/api'
 require 'saucetv/errors'

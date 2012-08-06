@@ -2,7 +2,9 @@ require 'spec_helper'
 
 
 describe SauceTV::API do
-  subject { SauceTV::API.new('rspec', 'rspec') }
+  let(:username) { 'rspec' }
+  let(:api_key) { 'rspec' }
+  subject { SauceTV::API.new(username, api_key) }
 
   describe :format do
     it 'should always be :json' do
@@ -65,6 +67,14 @@ describe SauceTV::API do
         info.should_not be_nil
         info.should be_instance_of Hash
       end
+    end
+  end
+
+  describe :auth_token_for do
+    let(:job_id) { 'rspec_jobid' }
+
+    it 'should generate the right token for the ID, username and API key' do
+      subject.auth_token_for(job_id).should == 'eab6d962d96a9abf2b8e770f64a70e35'
     end
   end
 end

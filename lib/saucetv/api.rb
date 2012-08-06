@@ -1,4 +1,5 @@
 require 'rubygems'
+require 'hmac-md5'
 require 'httparty'
 
 module SauceTV
@@ -12,6 +13,7 @@ module SauceTV
 
     def initialize(username, api_key)
       @username = username
+      @api_key = api_key
       @auth = {:username => username, :password => api_key}
     end
 
@@ -65,6 +67,12 @@ module SauceTV
       end
 
       return response.parsed_response
+    end
+
+    def auth_token_for(job_id)
+      h = HMAC::MD5.new("#{@username}:#{@api_key}")
+      h << job_id
+      h.hexdigest
     end
   end
 end
