@@ -20,6 +20,13 @@ module UserCredentials
   def api_key
     @credentials['api_key'] || 'anonymous'
   end
+
+  def login!
+    visit '/login'
+    fill_in 'username', :with => username
+    fill_in 'api_key', :with => api_key
+    click_button 'Log in'
+  end
 end
 
 World(UserCredentials)

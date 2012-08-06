@@ -13,7 +13,10 @@ Given /^I have an invalid Sauce Labs username or API key$/ do
 end
 
 Given /^I have recent jobs$/ do
-  SauceTV::API.any_instance.stub(:recent_jobs).and_return([{'id' => 'test'}])
+  SauceTV::API.any_instance.stub(:recent_jobs).and_return(jobs)
+  jobs.each do |job|
+    SauceTV::API.any_instance.stub(:info_for).with(job['id']).and_return(job)
+  end
 end
 
 When /^I try to watch videos$/ do
@@ -21,9 +24,7 @@ When /^I try to watch videos$/ do
 end
 
 When /^I enter my credentials$/ do
-  fill_in 'username', :with => username
-  fill_in 'api_key', :with => api_key
-  click_button 'Log in'
+  login!
 end
 
 Then /^I should be given a list of jobs$/ do

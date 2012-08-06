@@ -53,5 +53,18 @@ module SauceTV
         response.parsed_response
       end
     end
+
+    def info_for(job_id)
+      raise SauceTV::BadAPIParameters if job_id.nil?
+      response = {}
+
+      begin
+        response = get("/v1/#{username}/jobs/#{job_id}")
+      rescue Timeout::Error => e
+        return {}
+      end
+
+      return response.parsed_response
+    end
   end
 end

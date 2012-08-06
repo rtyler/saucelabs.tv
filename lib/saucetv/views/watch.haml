@@ -5,8 +5,15 @@
   %body
     Welcome #{username}
 
+
+    - unless jobs.empty?
+      %a{:href => "/watch/#{jobs[-1]['id']}"}
+        Auto-Play
+
     %ul#jobs
-      - jobs.each do |job|
-        %li.job
-          #{job['id']}
+      - jobs.compact.each do |job|
+        %li.job{:id => "job_#{job['id']}"}
+          %a{:href => "https://saucelabs.com/jobs/#{job['id']}"}
+            = job['name']
+          &middot;
 

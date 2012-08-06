@@ -46,6 +46,27 @@ describe SauceTV::API do
     end
   end
 
+  describe :info_for do
+    it 'should raise if the `job_id` is bad' do
+      expect {
+        subject.info_for(nil)
+      }.to raise_error(SauceTV::BadAPIParameters)
+    end
+
+    context 'when Sauce is timing out' do
+      before :each do
+        subject.class.should_receive(:get) do
+          raise Timeout::Error
+        end
+      end
+
+      it 'should return an empty Hash' do
+        info = subject.info_for('foo')
+        info.should_not be_nil
+        info.should be_instance_of Hash
+      end
+    end
+  end
 end
 
 

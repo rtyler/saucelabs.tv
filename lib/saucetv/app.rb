@@ -1,6 +1,7 @@
 require 'rubygems'
 
 require 'haml'
+require 'hmac'
 require 'sinatra'
 require 'saucetv/api'
 require 'saucetv/errors'
@@ -11,6 +12,12 @@ module SauceTV
 
     def authenticated?
       session[:username] && session[:api_key]
+    end
+
+    helpers do
+      def api_for_session
+        SauceTV::API.new(session[:username], session[:api_key])
+      end
     end
 
     get '/' do
@@ -28,12 +35,27 @@ module SauceTV
       redirect to('/watch')
     end
 
+    get '/watch/:id' do |id|
+      unless authenticated?
+        redirect to('/login')
+      end
+
+      api = api_for_session
+      info = api.info_for(id)
+
+      haml :player, :locals => {
+        :session => session[:username],
+        :id => id,
+        :info => info
+      }
+    end
+
     get '/watch' do
       unless authenticated?
         redirect to('/login')
       end
 
-      api = SauceTV::API.new(session[:username], session[:api_key])
+      api = api_for_session
       jobs = []
 
       begin
